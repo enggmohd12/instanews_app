@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string name="facebook_app_id">1199714541054333</string>
+     <string name="fb_login_protocol_scheme">fb1199714541054333</string>
+     <string name="facebook_client_token">c0d7eb21cbb91da02be0b50644aada88</string>
+     <string name="app_name">IN NEWS APP</string>
+</resources>
