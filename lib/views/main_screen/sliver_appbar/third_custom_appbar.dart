@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instanews_app/state/image_uploads/helper/image_picker_handler.dart';
+import 'package:instanews_app/state/image_uploads/models/file_type.dart';
+import 'package:instanews_app/state/post_settings/providers/post_setting_providers.dart';
 import 'package:instanews_app/views/components/dialogbox/alert_model_dialog.dart';
 import 'package:instanews_app/views/components/dialogbox/media_permission_dialog.dart';
 import 'package:instanews_app/views/components/snackbar/error_snackbar.dart';
+import 'package:instanews_app/views/create_new_post/create_new_post_view.dart';
 import 'package:instanews_app/views/main_screen/sliver_appbar/sliver_header_delegate/sliver_header_delegate.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -51,16 +54,34 @@ class _ThirdCustomState extends ConsumerState<ThirdCustomAppBar> {
                       } else if (status1.isGranted) {
                         final a =
                             await ImagePickerHandler.pickImageFromGallery();
-                        if (a != null) {}
+                        if (a == null) {
+                          return;
+                        }
+
+                        ref.refresh(postSettingProvider);
+
+                        if (!mounted) {
+                          return;
+                        }
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CreateNewPostView(
+                              filetoPost: a,
+                              fileType: FileType.image,
+                            ),
+                          ),
+                        );
                       }
                     },
-                    icon:const Icon(
+                    icon: const Icon(
                       Icons.camera,
                       size: 30,
                       color: Colors.white,
                     )),
                 IconButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       await Permission.photos.request();
                       var status1 = await Permission.photos.status;
                       if (status1.isPermanentlyDenied || status1.isDenied) {
@@ -79,7 +100,25 @@ class _ThirdCustomState extends ConsumerState<ThirdCustomAppBar> {
                       } else if (status1.isGranted) {
                         final a =
                             await ImagePickerHandler.pickVideoFromGallery();
-                        if (a != null) {}
+                        if (a == null) {
+                          return;
+                        }
+
+                        ref.refresh(postSettingProvider);
+
+                        if (!mounted) {
+                          return;
+                        }
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => CreateNewPostView(
+                              filetoPost: a,
+                              fileType: FileType.video,
+                            ),
+                          ),
+                        );
                       }
                     },
                     icon: const Icon(

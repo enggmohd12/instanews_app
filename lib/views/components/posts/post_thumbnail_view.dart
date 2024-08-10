@@ -15,7 +15,7 @@ class PostThumbailView extends StatelessWidget {
     return GestureDetector(
       onTap: onTapped,
       child: Image.network(
-        post.fileUrl,
+        post.thumbnailUrl,
         fit: BoxFit.cover,
       ),
     );
