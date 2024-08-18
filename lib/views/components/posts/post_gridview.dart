@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instanews_app/state/posts/models/post.dart';
 import 'package:instanews_app/views/components/posts/post_thumbnail_view.dart';
-import 'package:instanews_app/views/post_comment/post_comment_view.dart';
+import 'package:instanews_app/views/post_details/post_details_view.dart';
 
 class PostGridView extends StatelessWidget {
   final Iterable<Post> posts;
@@ -27,8 +27,8 @@ class PostGridView extends StatelessWidget {
           onTapped: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => PostCommentView(
-                  postId: post.postId,
+                builder: (context) => PostDetailView(
+                  post: post,
                 ),
               ),
             );

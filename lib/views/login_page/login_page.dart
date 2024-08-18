@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instanews_app/state/auth/providers/auth_state_provider.dart';
 import 'package:instanews_app/validator/email_validate.dart';
 import 'package:instanews_app/views/components/snackbar/error_snackbar.dart';
+import 'package:instanews_app/views/forgot_password/forgot_password_screen.dart';
 import 'package:instanews_app/views/login_page/forgot_password_link_button.dart';
 import 'package:instanews_app/views/login_page/login_button.dart';
 import 'package:instanews_app/views/login_page/login_divider.dart';
@@ -94,7 +95,13 @@ class LoginPage extends HookConsumerWidget {
               controller: passwordController,
             ),
             ForgotLinkButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ForgotPasswordScreen(),
+                  ),
+                );
+              },
               text: 'Forgot Password?',
             ),
 //Color.fromARGB(255, 68, 118, 255)

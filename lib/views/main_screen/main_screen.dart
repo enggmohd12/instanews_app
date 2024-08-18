@@ -22,7 +22,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.person),
             label: 'Home',
 
 
@@ -32,7 +32,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
             label: 'Search',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
+            icon: Icon(Icons.home),
             label: 'Explore',
           ),
         ],
