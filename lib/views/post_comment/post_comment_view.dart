@@ -15,7 +15,6 @@ import 'package:instanews_app/views/components/comment/comment_tile.dart';
 import 'package:instanews_app/views/constant/strings.dart';
 import 'package:instanews_app/views/extensions/dismiss_keyboard.dart';
 
-
 class PostCommentView extends HookConsumerWidget {
   final PostId postId;
   const PostCommentView({
@@ -70,7 +69,10 @@ class PostCommentView extends HookConsumerWidget {
                   data: (comment) {
                     if (comment.isEmpty) {
                       return const SingleChildScrollView(
-                        child: Center(child: GlobeAnimationTextView(text: Strings.noCommentsYet,)),
+                        child: Center(
+                            child: GlobeAnimationTextView(
+                          text: Strings.noCommentsYet,
+                        )),
                       );
                     }
                     return RefreshIndicator(
@@ -102,10 +104,29 @@ class PostCommentView extends HookConsumerWidget {
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: TextField(
+                    decoration: InputDecoration(
+                        hintText: Strings.writeYourCommentHere,
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5)),
+                            borderSide: BorderSide(
+                                width: 1, color: Colors.grey.shade400)),
+                        enabled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5)),
+                          borderSide:
+                              BorderSide(width: 1, color: Colors.grey.shade200),
+                        ),
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 20.0,horizontal: 8.0)),
                     textInputAction: TextInputAction.send,
                     controller: commentController,
                     onSubmitted: (comment) {
@@ -116,9 +137,6 @@ class PostCommentView extends HookConsumerWidget {
                         );
                       }
                     },
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: Strings.writeYourCommentHere),
                   ),
                 ),
               ),

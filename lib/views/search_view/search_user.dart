@@ -22,21 +22,38 @@ class SearchUserView extends HookConsumerWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: TextField(
             controller: controller,
             textInputAction: TextInputAction.search,
             decoration: InputDecoration(
-                labelText: Strings.enterYourSearchTermHere,
-                suffixIcon: IconButton(
-                    onPressed: () {
-                      controller.clear();
-                      dismissKeyboard();
-                    },
-                    icon: const Icon(Icons.clear))),
+              hintText: Strings.enterYourSearchTermHere,
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    controller.clear();
+                    dismissKeyboard();
+                  },
+                  icon: const Icon(Icons.clear)),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  borderSide:
+                      BorderSide(width: 1, color: Colors.grey.shade400)),
+              enabled: true,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                borderSide: BorderSide(width: 1, color: Colors.grey.shade200),
+              ),
+              hintStyle: const TextStyle(color: Colors.grey),
+              fillColor: Colors.grey.shade200,
+              filled: true,
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+            ),
           ),
         ),
-        SearchUserListView(searchTerm: searchTerm.value,),
+        SearchUserListView(
+          searchTerm: searchTerm.value,
+        ),
       ],
     );
   }

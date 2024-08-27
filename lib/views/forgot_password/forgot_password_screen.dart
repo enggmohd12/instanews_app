@@ -20,26 +20,26 @@ class ForgotPasswordScreen extends HookConsumerWidget {
     final isEnabled = useState(false);
     final isValidEmail = useState(false);
     useEffect(() => () {
-      emailcontroller.addListener(
-        () {
-          if (emailcontroller.text.isEmpty) {
-            isEnabled.value = false;
-          } else {
-            isValidEmail.value = validateEmail(emailcontroller.text);
-            isEnabled.value = true;
-          }
+          emailcontroller.addListener(
+            () {
+              if (emailcontroller.text.isEmpty) {
+                isEnabled.value = false;
+              } else {
+                isValidEmail.value = validateEmail(emailcontroller.text);
+                isEnabled.value = true;
+              }
 
-          if (!isValidEmail.value && isEnabled.value) {
-            WidgetsBinding.instance.addPostFrameCallback(
-              (_) {
-                showErrorSnackBar(
-                    context: context, message: 'Email is invalid');
-              },
-            );
-          }
-        },
-      );
-    });
+              if (!isValidEmail.value && isEnabled.value) {
+                WidgetsBinding.instance.addPostFrameCallback(
+                  (_) {
+                    showErrorSnackBar(
+                        context: context, message: 'Email is invalid');
+                  },
+                );
+              }
+            },
+          );
+        });
     return Scaffold(
       body: SingleChildScrollView(
         child:
@@ -110,11 +110,19 @@ class ForgotPasswordScreen extends HookConsumerWidget {
           const SizedBox(
             height: 20,
           ),
-          LoginButton(onPressed: () async {
-            final a = await FirebaseAuth.instance.sendPasswordResetEmail(email: emailcontroller.text);
-            showValidSnackBar(context: context, message: 'we have send you an email to reset the password');
-            //Navigator.of(context).pop();
-          }, text: 'Recover Password')
+          LoginButton(
+              onPressed: isValidEmail.value && isEnabled.value
+                  ? () async {
+                      await FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: emailcontroller.text);
+                      showValidSnackBar(
+                          context: context,
+                          message:
+                              'We have send you an email to recover the password');
+                      //Navigator.of(context).pop();
+                    }
+                  : null,
+              text: 'Recover Password')
         ]),
       ),
     );

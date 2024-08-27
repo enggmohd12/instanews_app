@@ -14,32 +14,37 @@ class ExploreView extends ConsumerWidget {
     final posts = ref.watch(allPostProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Explore'),
+        title: const Text(
+          'InstaNews',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: RefreshIndicator(
-        onRefresh: () {
-          ref.refresh(allPostProvider);
-          return Future.delayed(const Duration(seconds: 1));
-        },
-        child: posts.when(
-          data: (posts) {
-            if (posts.isEmpty) {
-              return const GlobeAnimationTextView(
-                text: Strings.noPostsAvailable,
-              );
-            } else {
-              return PostGridView(
-                posts: posts,
-              );
-            }
+          onRefresh: () {
+            ref.refresh(allPostProvider);
+            return Future.delayed(const Duration(seconds: 1));
           },
-          error: (error, stackTrace) => const SmallErrorAnimationView(),
-          loading: () {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        )),
+          child: posts.when(
+            data: (posts) {
+              if (posts.isEmpty) {
+                return const GlobeAnimationTextView(
+                  text: Strings.noPostsAvailable,
+                );
+              } else {
+                return PostGridView(
+                  posts: posts,
+                );
+              }
+            },
+            error: (error, stackTrace) => const SmallErrorAnimationView(),
+            loading: () {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          )),
     );
   }
 }

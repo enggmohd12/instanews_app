@@ -12,7 +12,12 @@ class SearchMainScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Search'),
+            title: const Text(
+              'InstNews',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             bottom: const TabBar(
               indicatorSize: TabBarIndicatorSize.label,
               tabs: [

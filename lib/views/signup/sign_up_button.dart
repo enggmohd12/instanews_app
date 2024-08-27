@@ -22,7 +22,11 @@ class SignUpButton extends StatelessWidget {
                   MaterialStatePropertyAll(Color.fromARGB(255, 69, 150, 249))),
           child: Text(
             text,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

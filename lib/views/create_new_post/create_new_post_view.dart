@@ -86,8 +86,25 @@ class _CreateNewPostViewState extends ConsumerState<CreateNewPostView> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: postController,
-                decoration: const InputDecoration(
-                    labelText: 'Please write your message here'),
+                decoration:  InputDecoration(
+                    hintText: 'Please write your message here',
+                    focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5)),
+                            borderSide: BorderSide(
+                                width: 1, color: Colors.grey.shade400)),
+                        enabled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5)),
+                          borderSide:
+                              BorderSide(width: 1, color: Colors.grey.shade200),
+                        ),
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        fillColor: Colors.grey.shade200,
+                        filled: true,
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 20.0,horizontal: 8.0)),
                 autofocus: true,
                 maxLength: null,
               ),

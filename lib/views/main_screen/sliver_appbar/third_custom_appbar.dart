@@ -37,21 +37,11 @@ class _ThirdCustomState extends ConsumerState<ThirdCustomAppBar> {
                 IconButton(
                     onPressed: () async {
                       await Permission.photos.request();
+                      await Permission.storage.request();
+                      var status2 = await Permission.storage.status;
                       var status1 = await Permission.photos.status;
-                      if (status1.isPermanentlyDenied || status1.isDenied) {
-                        final shouldOpenSetting =
-                            await MediaPermissionDialog().present(context).then(
-                                  (value) => value ?? false,
-                                );
-                        if (shouldOpenSetting) {
-                          openAppSettings();
-                        } else {
-                          showErrorSnackBar(
-                              context: context,
-                              message:
-                                  'App have no permission to access the gallery');
-                        }
-                      } else if (status1.isGranted) {
+
+                      if (status1.isGranted || status2.isGranted) {
                         final a =
                             await ImagePickerHandler.pickImageFromGallery();
                         if (a == null) {
@@ -73,6 +63,20 @@ class _ThirdCustomState extends ConsumerState<ThirdCustomAppBar> {
                             ),
                           ),
                         );
+                      } else if (status1.isPermanentlyDenied ||
+                          status1.isDenied || status2.isPermanentlyDenied || status2.isDenied) {
+                        final shouldOpenSetting =
+                            await MediaPermissionDialog().present(context).then(
+                                  (value) => value ?? false,
+                                );
+                        if (shouldOpenSetting) {
+                          openAppSettings();
+                        } else {
+                          showErrorSnackBar(
+                              context: context,
+                              message:
+                                  'App have no permission to access the gallery');
+                        }
                       }
                     },
                     icon: const Icon(
